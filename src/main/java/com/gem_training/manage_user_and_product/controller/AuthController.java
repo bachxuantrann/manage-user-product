@@ -7,6 +7,7 @@ import com.gem_training.manage_user_and_product.service.CustomeUserDetailsServic
 import com.gem_training.manage_user_and_product.util.annotation.ApiMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -30,6 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @ApiMessage("User login")
     public ResponseEntity<ResLoginDTO> login(@RequestBody LoginDTO loginDTO) throws IdInvalidException {
         Authentication authentication = authenticationManager.authenticate(
