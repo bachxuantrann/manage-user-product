@@ -32,6 +32,14 @@ public class UserServiceImpl implements UserService {
         User newUser = this.userRepository.save(user);
         return newUser.toUserDTO();
     }
+
+    @Override
+    public UserDTO handleGetUserDetail(Long id) throws IdInvalidException {
+        return this.userRepository.findById(id).orElseThrow(
+                () -> new IdInvalidException("user is not exist")
+        ).toUserDTO();
+    }
+
     public boolean isUserExist(String userName){
         if (this.userRepository.findByUsername(userName).isPresent()){
             return true;

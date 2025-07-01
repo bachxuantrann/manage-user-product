@@ -31,7 +31,6 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @ApiMessage("User login")
     public ResponseEntity<ResLoginDTO> login(@RequestBody LoginDTO loginDTO) throws IdInvalidException {
         Authentication authentication = authenticationManager.authenticate(

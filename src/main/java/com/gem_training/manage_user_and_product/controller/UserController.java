@@ -9,10 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -25,8 +22,12 @@ public class UserController {
 
     @PostMapping("/create")
     @ApiMessage("create a new user")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.handleCreateUser(user));
+    }
+    @GetMapping("/detail/{id}")
+    @ApiMessage("get info detail of user")
+    public ResponseEntity<UserDTO> getUserDetail(@PathVariable Long id) throws IdInvalidException {
+        return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleGetUserDetail(id));
     }
 }
