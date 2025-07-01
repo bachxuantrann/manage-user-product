@@ -5,17 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-    private Long id;
+public class LoginDTO {
     private String username;
-    private String address;
-    private String role;
-    private Instant createdAt;
-    private Instant updatedAt;
+    private String password;
 }

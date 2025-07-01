@@ -1,5 +1,7 @@
 package com.gem_training.manage_user_and_product.entity;
 
+import com.gem_training.manage_user_and_product.dto.UserDTO;
+import com.gem_training.manage_user_and_product.util.SecurityUtil;
 import com.gem_training.manage_user_and_product.util.enums.RoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -33,4 +35,21 @@ public class User {
     private String createdBy;
     private String updatedBy;
 
+
+    public UserDTO toUserDTO(){
+        return new UserDTO(
+                this.id,this.username,this.address,this.role.name(),this.createdAt,this.updatedAt
+        );
+    }
+
+    @PrePersist
+    public void handleBeforeCreate(){
+        this.createdBy = SecurityUtil.getCurrentUserLogin();
+        this.createdAt = Instant.now();
+    }
+    @PreUpdate
+    public void handleBeforeUpdate(){
+        this.updatedBy = SecurityUtil.getCurrentUserLogin();
+        this.updatedAt = Instant.now();
+    }
 }

@@ -4,6 +4,9 @@ package com.gem_training.manage_user_and_product.exception;
 import com.gem_training.manage_user_and_product.dto.RestReponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,12 +18,17 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(IdInvalidException.class)
+    @ExceptionHandler(value = {
+            IdInvalidException.class,
+            UsernameNotFoundException.class,
+            BadCredentialsException.class,
+            InternalAuthenticationServiceException.class
+    })
     public ResponseEntity<RestReponse<Object>> handleIdInvalidException(Exception ex) {
         RestReponse<Object> res = new RestReponse<Object>();
         res.setStatusCode(HttpStatus.BAD_REQUEST.value());
         res.setError(ex.getMessage());
-        res.setMessage("Id is invalid");
+        res.setMessage("Invalid username or password");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
 
