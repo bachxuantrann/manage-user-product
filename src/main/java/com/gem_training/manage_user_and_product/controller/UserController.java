@@ -25,22 +25,25 @@ public class UserController {
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.handleCreateUser(user));
     }
+
     @GetMapping("/detail/{id}")
     @ApiMessage("get info detail of user")
     public ResponseEntity<UserDTO> getUserDetail(@PathVariable Long id) throws IdInvalidException {
         return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleGetUserDetail(id));
     }
+
     @DeleteMapping("/delete/{id}")
     @ApiMessage("delete a user")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws IdInvalidException{
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws IdInvalidException {
         this.userService.handleDeleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
     @PutMapping("/update")
     @ApiMessage("update a user")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) throws IdInvalidException{
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) throws IdInvalidException {
         return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleUpdateUser(userDTO));
     }
 }

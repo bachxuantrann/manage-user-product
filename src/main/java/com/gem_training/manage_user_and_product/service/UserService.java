@@ -6,7 +6,10 @@ import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 
 public interface UserService {
     UserDTO handleCreateUser(User user) throws IdInvalidException;
+
     UserDTO handleGetUserDetail(Long id) throws IdInvalidException;
+
     void handleDeleteUser(Long id) throws IdInvalidException;
+
     UserDTO handleUpdateUser(UserDTO userDTO) throws IdInvalidException;
 }

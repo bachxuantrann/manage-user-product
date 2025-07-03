@@ -1,7 +1,6 @@
 package com.gem_training.manage_user_and_product.service.serviceImpl;
 
 import com.gem_training.manage_user_and_product.dto.UserDTO;
-import com.gem_training.manage_user_and_product.entity.Product;
 import com.gem_training.manage_user_and_product.entity.User;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 import com.gem_training.manage_user_and_product.repository.UserRepository;
@@ -14,14 +13,16 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
     @Override
     public UserDTO handleCreateUser(User user) throws IdInvalidException {
         boolean isExist = this.isUserExist(user.getUsername());
-        if(isExist){
+        if (isExist) {
             throw new IdInvalidException("user is exist");
         }
         String password = user.getPassword();
@@ -41,28 +42,30 @@ public class UserServiceImpl implements UserService {
         ).toUserDTO();
     }
 
-    public boolean isUserExist(String userName){
-        if (this.userRepository.findByUsername(userName).isPresent()){
+    public boolean isUserExist(String userName) {
+        if (this.userRepository.findByUsername(userName).isPresent()) {
             return true;
         }
         return false;
     }
+
     @Override
     public void handleDeleteUser(Long id) throws IdInvalidException {
         User user = this.userRepository.findById(id).orElseThrow(
                 () -> new IdInvalidException("user is not exist"));
-        if (user != null){
+        if (user != null) {
             this.userRepository.delete(user);
         }
     }
+
     @Override
     public UserDTO handleUpdateUser(UserDTO userDTO) throws IdInvalidException {
-        User currentUser =  this.userRepository.findById(userDTO.getId()).orElseThrow(() -> new IdInvalidException("id is not found: " + userDTO.getId()));
-        if (currentUser != null){
-            if (userDTO.getUsername() != null){
+        User currentUser = this.userRepository.findById(userDTO.getId()).orElseThrow(() -> new IdInvalidException("id is not found: " + userDTO.getId()));
+        if (currentUser != null) {
+            if (userDTO.getUsername() != null) {
                 currentUser.setUsername(userDTO.getUsername());
             }
-            if (userDTO.getAddress() != null){
+            if (userDTO.getAddress() != null) {
                 currentUser.setAddress(userDTO.getAddress());
             }
             if (userDTO.getRole() != null) {

@@ -11,10 +11,9 @@ import java.time.Instant;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
+public class CategoryDTO {
     private Long id;
     private String name;
-    private Double price;
     private Instant createdAt;
     private Instant updatedAt;
 }

@@ -1,51 +1,40 @@
 package com.gem_training.manage_user_and_product.entity;
 
-import com.gem_training.manage_user_and_product.dto.UserDTO;
 import com.gem_training.manage_user_and_product.util.SecurityUtil;
-import com.gem_training.manage_user_and_product.util.enums.RoleEnum;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "category")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "username is required")
-    private String username;
-    @NotBlank(message = "password is required")
-    private String password;
-    private int age;
-    private String address;
-    @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    private String name;
+    //    one category has many products
+    @OneToMany(mappedBy = "category")
+    private List<Product> products = new ArrayList<>();
+
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
 
-
-    public UserDTO toUserDTO(){
-        return new UserDTO(
-                this.id,this.username,this.address,this.role.name(),this.createdAt,this.updatedAt
-        );
-    }
-
     @PrePersist
-    public void handleBeforeCreate(){
-        this.createdBy = SecurityUtil.getCurrentUserLogin();
+    public void handleBeforeCreate() {
         this.createdAt = Instant.now();
+        this.createdBy = SecurityUtil.getCurrentUserLogin();
     }
 
     @PreUpdate
