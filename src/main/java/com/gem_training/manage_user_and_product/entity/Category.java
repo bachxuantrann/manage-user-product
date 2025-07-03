@@ -1,5 +1,6 @@
 package com.gem_training.manage_user_and_product.entity;
 
+import com.gem_training.manage_user_and_product.dto.CategoryDTO;
 import com.gem_training.manage_user_and_product.util.SecurityUtil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,5 +42,8 @@ public class Category {
     public void handleBeforeUpdate() {
         this.updatedBy = SecurityUtil.getCurrentUserLogin();
         this.updatedAt = Instant.now();
+    }
+    public CategoryDTO toCategoryDTO(){
+        return new CategoryDTO(this.id,this.name,this.createdAt,this.updatedAt);
     }
 }

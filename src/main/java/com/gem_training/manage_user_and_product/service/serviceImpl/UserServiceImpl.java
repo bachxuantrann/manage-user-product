@@ -9,6 +9,8 @@ import com.gem_training.manage_user_and_product.util.enums.RoleEnum;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -74,5 +76,10 @@ public class UserServiceImpl implements UserService {
             currentUser = this.userRepository.save(currentUser);
         }
         return currentUser.toUserDTO();
+    }
+
+    @Override
+    public List<UserDTO> handleGetAllUsers(String keyword) {
+        return List.of();
     }
 }

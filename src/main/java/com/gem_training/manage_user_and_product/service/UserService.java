@@ -4,6 +4,8 @@ import com.gem_training.manage_user_and_product.dto.UserDTO;
 import com.gem_training.manage_user_and_product.entity.User;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 
+import java.util.List;
+
 public interface UserService {
     UserDTO handleCreateUser(User user) throws IdInvalidException;
 
@@ -12,4 +14,6 @@ public interface UserService {
     void handleDeleteUser(Long id) throws IdInvalidException;
 
     UserDTO handleUpdateUser(UserDTO userDTO) throws IdInvalidException;
+
+    List<UserDTO> handleGetAllUsers(String keyword);
 }
