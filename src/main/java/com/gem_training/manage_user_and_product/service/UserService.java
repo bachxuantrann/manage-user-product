@@ -16,4 +16,6 @@ public interface UserService {
     UserDTO handleUpdateUser(UserDTO userDTO) throws IdInvalidException;
 
     List<UserDTO> handleGetAllUsers(String keyword);
+
+    String getUsernameById(Long id) throws IdInvalidException;
 }

@@ -28,6 +28,7 @@ public class UserController {
 
     @GetMapping("/detail/{id}")
     @ApiMessage("get info detail of user")
+    @PreAuthorize("hasRole('ADMIN') or authentication.name == @userServiceImpl.getUsernameById(#id)")
     public ResponseEntity<UserDTO> getUserDetail(@PathVariable Long id) throws IdInvalidException {
         return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleGetUserDetail(id));
     }

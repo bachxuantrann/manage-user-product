@@ -82,4 +82,12 @@ public class UserServiceImpl implements UserService {
     public List<UserDTO> handleGetAllUsers(String keyword) {
         return List.of();
     }
+
+    @Override
+    public String getUsernameById(Long id) throws IdInvalidException {
+        return this.userRepository.findById(id)
+                .orElseThrow(() -> new IdInvalidException("user not found"))
+                .getUsername();
+    }
+
 }

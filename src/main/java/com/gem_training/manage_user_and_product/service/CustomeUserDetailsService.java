@@ -1,10 +1,12 @@
 package com.gem_training.manage_user_and_product.service;
 
 import com.gem_training.manage_user_and_product.repository.UserRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
