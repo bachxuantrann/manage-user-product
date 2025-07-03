@@ -51,21 +51,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO handleUpdateProduct(ProductDTO productDTO) throws IdInvalidException {
         Product currentProduct = this.productRepository.findById(productDTO.getId()).orElseThrow(
-                ()-> new IdInvalidException("product does not exist")
+                () -> new IdInvalidException("product does not exist")
         );
-        if (productDTO.getName()!=null) {
+        if (productDTO.getName() != null) {
             currentProduct.setName(productDTO.getName());
         }
-        if (productDTO.getPrice()!=null) {
+        if (productDTO.getPrice() != null) {
             currentProduct.setPrice(productDTO.getPrice());
         }
-        if (productDTO.getCategoryId()!=null) {
+        if (productDTO.getCategoryId() != null) {
             currentProduct.setCategory(this.categoryRepository.findById(productDTO.getCategoryId()).orElseThrow(
                     () -> new IdInvalidException("category does not exist")
             ));
         }
         return this.productRepository.save(currentProduct).toProductDTO();
     }
+
     @Override
     public List<ProductDTO> handleGetAllProducts(String keyword) {
         return List.of();
