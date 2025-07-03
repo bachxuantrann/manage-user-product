@@ -15,6 +15,10 @@ public class ProductDTO {
     private Long id;
     private String name;
     private Double price;
+    //  Name of category
+    private String category;
+    //  Id of category
+    private Long categoryId;
     private Instant createdAt;
     private Instant updatedAt;
 }

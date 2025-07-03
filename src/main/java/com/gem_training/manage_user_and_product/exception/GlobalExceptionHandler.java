@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         RestReponse<Object> res = new RestReponse<Object>();
         res.setStatusCode(HttpStatus.BAD_REQUEST.value());
         res.setError(ex.getMessage());
-        res.setMessage("Invalid username or password");
+        res.setMessage("Invalid!");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
 

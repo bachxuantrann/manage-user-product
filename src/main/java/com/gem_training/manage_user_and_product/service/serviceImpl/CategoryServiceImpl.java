@@ -34,9 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = this.categoryRepository.findById(id).orElseThrow(
                 () -> new IdInvalidException("category does not exist")
         );
-        if (category != null) {
-            this.categoryRepository.delete(category);
-        }
+        this.categoryRepository.delete(category);
     }
 
     @Override
@@ -50,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDTO handleGetCategory(Long id) throws IdInvalidException {
         return this.categoryRepository.findById(id).orElseThrow(
-                ()-> new IdInvalidException("category is not exist")
+                () -> new IdInvalidException("category is not exist")
         ).toCategoryDTO();
     }
 

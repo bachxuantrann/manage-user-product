@@ -3,6 +3,7 @@ package com.gem_training.manage_user_and_product.entity;
 import com.gem_training.manage_user_and_product.dto.CategoryDTO;
 import com.gem_training.manage_user_and_product.util.SecurityUtil;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "name of category is required")
     private String name;
     //    one category has many products
     @OneToMany(mappedBy = "category")

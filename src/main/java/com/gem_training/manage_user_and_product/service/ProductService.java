@@ -5,10 +5,10 @@ import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 
 import java.util.List;
 
-public interface ProductService {
+public interface ProductService  {
     ProductDTO handleGetProduct(Long id) throws IdInvalidException;
 
-    ProductDTO handleCreateProduct(ProductDTO productDTO) throws IdInvalidException;
+    ProductDTO handleCreateProduct(ProductDTO productDTO) throws IdInvalidException ;
 
     void handleDeleteProduct(Long id) throws IdInvalidException;
 
