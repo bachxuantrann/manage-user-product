@@ -46,4 +46,12 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+    @Override
+    public void handleDeleteUser(Long id) throws IdInvalidException {
+        User user = this.userRepository.findById(id).orElseThrow(
+                () -> new IdInvalidException("user is not exist"));
+        if (user != null){
+            this.userRepository.delete(user);
+        }
+    }
 }

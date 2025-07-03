@@ -30,4 +30,11 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserDetail(@PathVariable Long id) throws IdInvalidException {
         return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleGetUserDetail(id));
     }
+    @DeleteMapping("/delete/{id}")
+    @ApiMessage("delete a user")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws IdInvalidException{
+        this.userService.handleDeleteUser(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
