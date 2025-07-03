@@ -1,6 +1,7 @@
 package com.gem_training.manage_user_and_product.service.serviceImpl;
 
 import com.gem_training.manage_user_and_product.dto.UserDTO;
+import com.gem_training.manage_user_and_product.entity.Product;
 import com.gem_training.manage_user_and_product.entity.User;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 import com.gem_training.manage_user_and_product.repository.UserRepository;
@@ -53,5 +54,22 @@ public class UserServiceImpl implements UserService {
         if (user != null){
             this.userRepository.delete(user);
         }
+    }
+    @Override
+    public UserDTO handleUpdateUser(UserDTO userDTO) throws IdInvalidException {
+        User currentUser =  this.userRepository.findById(userDTO.getId()).orElseThrow(() -> new IdInvalidException("id is not found: " + userDTO.getId()));
+        if (currentUser != null){
+            if (userDTO.getUsername() != null){
+                currentUser.setUsername(userDTO.getUsername());
+            }
+            if (userDTO.getAddress() != null){
+                currentUser.setAddress(userDTO.getAddress());
+            }
+            if (userDTO.getRole() != null) {
+                currentUser.setRole(RoleEnum.valueOf(userDTO.getRole()));
+            }
+            currentUser = this.userRepository.save(currentUser);
+        }
+        return currentUser.toUserDTO();
     }
 }

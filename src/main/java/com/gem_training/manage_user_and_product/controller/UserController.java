@@ -37,4 +37,10 @@ public class UserController {
         this.userService.handleDeleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+    @PutMapping("/update")
+    @ApiMessage("update a user")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) throws IdInvalidException{
+        return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleUpdateUser(userDTO));
+    }
 }
