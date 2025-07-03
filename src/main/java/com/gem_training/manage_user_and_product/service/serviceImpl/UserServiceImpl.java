@@ -1,11 +1,16 @@
 package com.gem_training.manage_user_and_product.service.serviceImpl;
 
+import com.gem_training.manage_user_and_product.dto.MetaDTO;
+import com.gem_training.manage_user_and_product.dto.ResultPaginationDTO;
 import com.gem_training.manage_user_and_product.dto.UserDTO;
 import com.gem_training.manage_user_and_product.entity.User;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 import com.gem_training.manage_user_and_product.repository.UserRepository;
 import com.gem_training.manage_user_and_product.service.UserService;
 import com.gem_training.manage_user_and_product.util.enums.RoleEnum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -79,8 +84,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> handleGetAllUsers(String keyword) {
-        return List.of();
+    public ResultPaginationDTO handleGetAllUsers(Specification spec, Pageable pageable) {
+        Page<User> users = this.userRepository.findAll(spec, pageable);
+        ResultPaginationDTO result = new ResultPaginationDTO();
+        MetaDTO metaDTO = new MetaDTO();
+        metaDTO.setPage(pageable.getPageNumber()+1);
+        metaDTO.setPageSize(pageable.getPageSize()+1);
+        metaDTO.setTotal(users.getTotalElements());
+        metaDTO.setTotalPages(users.getTotalPages());
+        result.setMetaDTO(metaDTO);
+        result.setResult(users.getContent());
+        return result;
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.gem_training.manage_user_and_product.service;
 
+import com.gem_training.manage_user_and_product.dto.ResultPaginationDTO;
 import com.gem_training.manage_user_and_product.dto.UserDTO;
 import com.gem_training.manage_user_and_product.entity.User;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -15,7 +18,7 @@ public interface UserService {
 
     UserDTO handleUpdateUser(UserDTO userDTO) throws IdInvalidException;
 
-    List<UserDTO> handleGetAllUsers(String keyword);
+    ResultPaginationDTO handleGetAllUsers(Specification spec, Pageable pageable);
 
     String getUsernameById(Long id) throws IdInvalidException;
 }
