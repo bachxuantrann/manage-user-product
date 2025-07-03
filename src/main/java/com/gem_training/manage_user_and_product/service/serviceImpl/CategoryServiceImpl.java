@@ -41,12 +41,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO handleUpdateCategory(CategoryDTO categoryDTO) throws IdInvalidException {
-        return null;
+        Category currentCategory = this.categoryRepository.findById(categoryDTO.getId()).orElseThrow(
+                () -> new IdInvalidException("category does not exist"));
+        currentCategory.setName(categoryDTO.getName());
+        return this.categoryRepository.save(currentCategory).toCategoryDTO();
     }
 
     @Override
     public CategoryDTO handleGetCategory(Long id) throws IdInvalidException {
-        return null;
+        return this.categoryRepository.findById(id).orElseThrow(
+                ()-> new IdInvalidException("category is not exist")
+        ).toCategoryDTO();
     }
 
     @Override
