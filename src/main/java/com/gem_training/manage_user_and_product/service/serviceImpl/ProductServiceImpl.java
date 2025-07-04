@@ -1,12 +1,17 @@
 package com.gem_training.manage_user_and_product.service.serviceImpl;
 
+import com.gem_training.manage_user_and_product.dto.MetaDTO;
 import com.gem_training.manage_user_and_product.dto.ProductDTO;
+import com.gem_training.manage_user_and_product.dto.ResultPaginationDTO;
 import com.gem_training.manage_user_and_product.entity.Category;
 import com.gem_training.manage_user_and_product.entity.Product;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 import com.gem_training.manage_user_and_product.repository.CategoryRepository;
 import com.gem_training.manage_user_and_product.repository.ProductRepository;
 import com.gem_training.manage_user_and_product.service.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,8 +73,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> handleGetAllProducts(String keyword) {
-        return List.of();
+    public ResultPaginationDTO handleGetAllProducts(Specification spec, Pageable pageable) {
+        Page<Product> products = this.productRepository.findAll(spec,pageable);
+        ResultPaginationDTO result =  new ResultPaginationDTO();
+        MetaDTO metaDTO = new MetaDTO();
+        metaDTO.setPage(pageable.getPageNumber()+1);
+        metaDTO.setPageSize(pageable.getPageSize()+1);
+        metaDTO.setTotal(products.getTotalElements());
+        metaDTO.setTotalPages(products.getTotalPages());
+        result.setMetaDTO(metaDTO);
+        result.setResult(products.getContent());
+        return result;
     }
 
 }

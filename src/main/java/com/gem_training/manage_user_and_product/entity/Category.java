@@ -1,5 +1,6 @@
 package com.gem_training.manage_user_and_product.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gem_training.manage_user_and_product.dto.CategoryDTO;
 import com.gem_training.manage_user_and_product.util.SecurityUtil;
 import jakarta.persistence.*;
@@ -27,6 +28,7 @@ public class Category {
     private String name;
     //    one category has many products
     @OneToMany(mappedBy = "category")
+    @JsonManagedReference
     private List<Product> products = new ArrayList<>();
 
     private Instant createdAt;

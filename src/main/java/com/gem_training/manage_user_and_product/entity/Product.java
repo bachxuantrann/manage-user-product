@@ -1,5 +1,6 @@
 package com.gem_training.manage_user_and_product.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.gem_training.manage_user_and_product.dto.ProductDTO;
 import com.gem_training.manage_user_and_product.util.SecurityUtil;
 import jakarta.persistence.*;
@@ -29,6 +30,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonBackReference
     private Category category;
 
     private Instant createdAt;
