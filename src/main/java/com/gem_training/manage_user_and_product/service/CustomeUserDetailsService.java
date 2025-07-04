@@ -22,9 +22,7 @@ public class CustomeUserDetailsService implements UserDetailsService {
         com.gem_training.manage_user_and_product.entity.User user = this.userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found with username: " + username)
         );
-        if (user == null) {
-            throw new UsernameNotFoundException("Username not found");
-        }
+        // case user này ko bằng null đc, nếu null thì orElseThrow ở bên trên luôn nên chỗ này code thừa
         return User.builder().username(user.getUsername()).password(user.getPassword())
                 .roles(user.getRole().name()).build();
     }

@@ -75,8 +75,8 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> products = this.productRepository.findAll(spec,pageable);
         ResultPaginationDTO result = new ResultPaginationDTO();
         MetaDTO metaDTO = new MetaDTO();
-        metaDTO.setPage(pageable.getPageNumber() + 1);
-        metaDTO.setPageSize(pageable.getPageSize() + 1);
+        metaDTO.setPage(pageable.getPageNumber() + 1);// chỗ này sao em lại +1 nhỉ
+        metaDTO.setPageSize(pageable.getPageSize() + 1);// chỗ này sao em lại +1 nhỉ
         metaDTO.setTotal(products.getTotalElements());
         metaDTO.setTotalPages(products.getTotalPages());
         result.setMetaDTO(metaDTO);
