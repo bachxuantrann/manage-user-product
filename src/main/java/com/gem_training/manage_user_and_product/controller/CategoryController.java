@@ -27,7 +27,7 @@ public class CategoryController {
     @PostMapping("/create")
     @ApiMessage("create a category")
     @Operation(summary = "Create a category",description = "Need only role ADMIN to create a new category")
-    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) throws IdInvalidException {
+    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) throws IdInvalidException, IllegalAccessException {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.categoryService.handleCreateCategory(categoryDTO));
     }
 

@@ -7,6 +7,7 @@ import com.gem_training.manage_user_and_product.entity.Category;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 import com.gem_training.manage_user_and_product.repository.CategoryRepository;
 import com.gem_training.manage_user_and_product.service.CategoryService;
+import com.gem_training.manage_user_and_product.util.ValidatorUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,14 +22,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDTO handleCreateCategory(CategoryDTO categoryDTO) throws IdInvalidException {
+    public CategoryDTO handleCreateCategory(CategoryDTO categoryDTO) throws IdInvalidException, IllegalAccessException {
         boolean isExist = isCategoryExist(categoryDTO.getName());
-        if (isExist) {
-            throw new IdInvalidException("category already exist");
-        }
+//        if (isExist) {
+//            throw new IdInvalidException("category already exist");
+//        }
         Category category = new Category();
         category.setName(categoryDTO.getName());
-        return this.categoryRepository.save(category).toDTO(CategoryDTO.class);
+        if (ValidatorUtil.validate(category)) {
+            return this.categoryRepository.save(category).toDTO(CategoryDTO.class);
+        }
+        return null;
     }
 
     @Override

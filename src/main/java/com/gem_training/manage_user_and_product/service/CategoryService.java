@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 public interface CategoryService {
-    CategoryDTO handleCreateCategory(CategoryDTO categoryDTO) throws IdInvalidException;
+    CategoryDTO handleCreateCategory(CategoryDTO categoryDTO) throws IdInvalidException, IllegalAccessException;
 
     void handleDeleteCategory(Long id) throws IdInvalidException;
 

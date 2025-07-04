@@ -2,6 +2,8 @@ package com.gem_training.manage_user_and_product.exception;
 
 
 import com.gem_training.manage_user_and_product.dto.RestReponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,7 +20,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
+    private final Environment environment;
+
     @ExceptionHandler(value = {
             IdInvalidException.class,
             UsernameNotFoundException.class,
@@ -52,4 +57,17 @@ public class GlobalExceptionHandler {
         res.setError(ex.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
     }
+
+
+    @ExceptionHandler(value = {
+            ValidatorException.class,
+    })
+    public ResponseEntity<RestReponse<Object>> handleValidatorException(ValidatorException ex) {
+        RestReponse<Object> res = new RestReponse<Object>();
+        res.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        res.setError(ex.getMessage());
+        res.setMessage(ex.isErrorCode() ? environment.getProperty(ex.getMessage()) : ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
+    }
+
 }

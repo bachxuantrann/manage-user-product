@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/", "/api/auth/login").permitAll()
                                 .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/api/product/**").hasRole("ADMIN")
-                                .requestMatchers("/api/category/**").hasRole("ADMIN")
+                                .requestMatchers("/api/category/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
