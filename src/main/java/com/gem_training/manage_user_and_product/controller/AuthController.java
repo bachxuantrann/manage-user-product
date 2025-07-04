@@ -5,6 +5,7 @@ import com.gem_training.manage_user_and_product.dto.ResLoginDTO;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 import com.gem_training.manage_user_and_product.service.CustomeUserDetailsService;
 import com.gem_training.manage_user_and_product.util.annotation.ApiMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @ApiMessage("User login")
+    @Operation(summary = "User login", description = "authenticate user")
     public ResponseEntity<ResLoginDTO> login(@RequestBody LoginDTO loginDTO) throws IdInvalidException {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())

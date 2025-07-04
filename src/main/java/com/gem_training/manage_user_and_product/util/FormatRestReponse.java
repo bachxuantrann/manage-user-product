@@ -29,7 +29,7 @@ public class FormatRestReponse implements ResponseBodyAdvice<Object> {
         int status = servletResponse.getStatus();
         RestReponse<Object> res = new RestReponse<>();
         res.setStatusCode(status);
-        if (body instanceof String) {
+        if (body instanceof String || body instanceof byte[]) {
             return body;
         }
         if (status >= 400) {
