@@ -37,14 +37,14 @@ public class UserServiceImpl implements UserService {
         // chỗ này em đang cho người dùng có thể truyền quyền lên để tạo tk, như thế là ko nên, cho nên lên sửa lại chỗ này, với lại
         // chú ý trim() các chuỗi của user nhé
         User newUser = this.userRepository.save(user);
-        return newUser.toUserDTO();
+        return newUser.toDTO(UserDTO.class);
     }
 
     @Override
     public UserDTO handleGetUserDetail(Long id) throws IdInvalidException {
         return this.userRepository.findById(id).orElseThrow(
                 () -> new IdInvalidException("user is not exist")
-        ).toUserDTO();
+        ).toDTO(UserDTO.class);
     }
 
     public boolean isUserExist(String userName) {
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
             }
             currentUser = this.userRepository.save(currentUser);
         }
-        return currentUser.toUserDTO();
+        return currentUser.toDTO(UserDTO.class);
     }
 
     @Override
