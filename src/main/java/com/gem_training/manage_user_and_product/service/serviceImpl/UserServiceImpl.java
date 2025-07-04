@@ -26,16 +26,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO handleCreateUser(User user) throws IdInvalidException {
-        boolean isExist = this.isUserExist(user.getUsername());
+        boolean isExist = this.isUserExist(user.getUsername().trim());
         if (isExist) {
             throw new IdInvalidException("user is exist");
         }
-        String password = user.getPassword();
-        String hassPassword = this.passwordEncoder.encode(password);
-        user.setPassword(hassPassword);
-        if (user.getRole() == null) {
-            user.setRole(RoleEnum.USER);  // gán quyền mặc định
-        }
+        String password = user.getPassword().trim();
+        String hashPassword = this.passwordEncoder.encode(password);
+        user.setPassword(hashPassword);
+        user.setRole(RoleEnum.USER);
+        // chỗ này em đang cho người dùng có thể truyền quyền lên để tạo tk, như thế là ko nên, cho nên lên sửa lại chỗ này, với lại
+        // chú ý trim() các chuỗi của user nhé
         User newUser = this.userRepository.save(user);
         return newUser.toUserDTO();
     }
@@ -48,10 +48,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean isUserExist(String userName) {
-        if (this.userRepository.findByUsername(userName).isPresent()) {
-            return true;
-        }
-        return false;
+        return this.userRepository.findByUsername(userName.trim()).isPresent();
+        // logic chỗ này đang thừa, vì rõ ràng isPresent() đã trả về true hoặc false
     }
 
     @Override
