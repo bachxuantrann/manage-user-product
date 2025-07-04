@@ -14,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
@@ -75,10 +73,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResultPaginationDTO handleGetAllProducts(Specification spec, Pageable pageable) {
         Page<Product> products = this.productRepository.findAll(spec,pageable);
-        ResultPaginationDTO result =  new ResultPaginationDTO();
+        ResultPaginationDTO result = new ResultPaginationDTO();
         MetaDTO metaDTO = new MetaDTO();
-        metaDTO.setPage(pageable.getPageNumber()+1);
-        metaDTO.setPageSize(pageable.getPageSize()+1);
+        metaDTO.setPage(pageable.getPageNumber() + 1);
+        metaDTO.setPageSize(pageable.getPageSize() + 1);
         metaDTO.setTotal(products.getTotalElements());
         metaDTO.setTotalPages(products.getTotalPages());
         result.setMetaDTO(metaDTO);

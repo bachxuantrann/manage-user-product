@@ -36,14 +36,14 @@ public class User {
     private String updatedBy;
 
 
-    public UserDTO toUserDTO(){
+    public UserDTO toUserDTO() {
         return new UserDTO(
-                this.id,this.username,this.address,this.role.name(),this.createdAt,this.updatedAt
+                this.id, this.username, this.address, this.role.name(), this.createdAt, this.updatedAt
         );
     }
 
     @PrePersist
-    public void handleBeforeCreate(){
+    public void handleBeforeCreate() {
         this.createdBy = SecurityUtil.getCurrentUserLogin();
         this.createdAt = Instant.now();
     }

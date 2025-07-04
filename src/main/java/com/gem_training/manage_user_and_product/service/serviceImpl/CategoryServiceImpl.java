@@ -2,7 +2,6 @@ package com.gem_training.manage_user_and_product.service.serviceImpl;
 
 import com.gem_training.manage_user_and_product.dto.CategoryDTO;
 import com.gem_training.manage_user_and_product.dto.MetaDTO;
-import com.gem_training.manage_user_and_product.dto.ProductDTO;
 import com.gem_training.manage_user_and_product.dto.ResultPaginationDTO;
 import com.gem_training.manage_user_and_product.entity.Category;
 import com.gem_training.manage_user_and_product.exception.IdInvalidException;
@@ -12,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -60,11 +57,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResultPaginationDTO handleGetAllCategories(Specification<Category> spec, Pageable pageable) {
-        Page<Category> categories = this.categoryRepository.findAll(spec,pageable);
-        ResultPaginationDTO result =  new ResultPaginationDTO();
+        Page<Category> categories = this.categoryRepository.findAll(spec, pageable);
+        ResultPaginationDTO result = new ResultPaginationDTO();
         MetaDTO metaDTO = new MetaDTO();
-        metaDTO.setPage(pageable.getPageNumber()+1);
-        metaDTO.setPageSize(pageable.getPageSize()+1);
+        metaDTO.setPage(pageable.getPageNumber() + 1);
+        metaDTO.setPageSize(pageable.getPageSize() + 1);
         metaDTO.setTotal(categories.getTotalElements());
         metaDTO.setTotalPages(categories.getTotalPages());
         result.setMetaDTO(metaDTO);

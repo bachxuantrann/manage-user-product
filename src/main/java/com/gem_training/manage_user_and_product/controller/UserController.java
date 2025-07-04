@@ -55,7 +55,7 @@ public class UserController {
     @GetMapping("/getAll")
     @ApiMessage("get all and find user")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ResultPaginationDTO> getAllUsers(@Filter Specification<User> spec, Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleGetAllUsers(spec,pageable));
+    public ResponseEntity<ResultPaginationDTO> getAllUsers(@Filter Specification<User> spec, Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleGetAllUsers(spec, pageable));
     }
 }

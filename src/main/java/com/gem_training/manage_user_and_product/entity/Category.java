@@ -47,7 +47,8 @@ public class Category {
         this.updatedBy = SecurityUtil.getCurrentUserLogin();
         this.updatedAt = Instant.now();
     }
-    public CategoryDTO toCategoryDTO(){
-        return new CategoryDTO(this.id,this.name,this.createdAt,this.updatedAt);
+
+    public CategoryDTO toCategoryDTO() {
+        return new CategoryDTO(this.id, this.name, this.createdAt, this.updatedAt);
     }
 }

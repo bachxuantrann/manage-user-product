@@ -47,9 +47,10 @@ public class CategoryController {
     public ResponseEntity<CategoryDTO> updateCategory(@RequestBody CategoryDTO categoryDTO) throws IdInvalidException {
         return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.handleUpdateCategory(categoryDTO));
     }
+
     @GetMapping("/getAll")
     @ApiMessage("get all category")
-    public ResponseEntity<ResultPaginationDTO> getAllCategories (@Filter Specification<Category> spec, Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.handleGetAllCategories(spec,pageable));
+    public ResponseEntity<ResultPaginationDTO> getAllCategories(@Filter Specification<Category> spec, Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.handleGetAllCategories(spec, pageable));
     }
 }

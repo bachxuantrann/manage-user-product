@@ -47,9 +47,10 @@ public class ProductController {
     public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO productDTO) throws IdInvalidException {
         return ResponseEntity.status(HttpStatus.OK).body(this.productService.handleUpdateProduct(productDTO));
     }
+
     @GetMapping("/getAll")
     @ApiMessage("get all products")
-    public ResponseEntity<ResultPaginationDTO> getAllProducts(@Filter Specification<Product> spec, Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(this.productService.handleGetAllProducts(spec,pageable));
+    public ResponseEntity<ResultPaginationDTO> getAllProducts(@Filter Specification<Product> spec, Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.productService.handleGetAllProducts(spec, pageable));
     }
 }

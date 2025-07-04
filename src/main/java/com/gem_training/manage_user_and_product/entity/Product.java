@@ -37,6 +37,7 @@ public class Product {
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
+
     @PrePersist
     public void handleBeforeCreate() {
         this.createdAt = Instant.now();

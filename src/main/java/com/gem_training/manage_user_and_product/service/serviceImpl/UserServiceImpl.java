@@ -14,8 +14,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -88,8 +86,8 @@ public class UserServiceImpl implements UserService {
         Page<User> users = this.userRepository.findAll(spec, pageable);
         ResultPaginationDTO result = new ResultPaginationDTO();
         MetaDTO metaDTO = new MetaDTO();
-        metaDTO.setPage(pageable.getPageNumber()+1);
-        metaDTO.setPageSize(pageable.getPageSize()+1);
+        metaDTO.setPage(pageable.getPageNumber() + 1);
+        metaDTO.setPageSize(pageable.getPageSize() + 1);
         metaDTO.setTotal(users.getTotalElements());
         metaDTO.setTotalPages(users.getTotalPages());
         result.setMetaDTO(metaDTO);

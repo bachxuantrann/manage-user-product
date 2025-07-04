@@ -7,8 +7,6 @@ import com.gem_training.manage_user_and_product.exception.IdInvalidException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
-
 public interface UserService {
     UserDTO handleCreateUser(User user) throws IdInvalidException;
 
