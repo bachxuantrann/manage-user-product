@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
         Category category = new Category();
         category.setName(categoryDTO.getName());
-        return this.categoryRepository.save(category).toCategoryDTO();
+        return this.categoryRepository.save(category).toDTO(CategoryDTO.class);
     }
 
     @Override
@@ -44,14 +44,14 @@ public class CategoryServiceImpl implements CategoryService {
         Category currentCategory = this.categoryRepository.findById(categoryDTO.getId()).orElseThrow(
                 () -> new IdInvalidException("category does not exist"));
         currentCategory.setName(categoryDTO.getName());
-        return this.categoryRepository.save(currentCategory).toCategoryDTO();
+        return this.categoryRepository.save(currentCategory).toDTO(CategoryDTO.class);
     }
 
     @Override
     public CategoryDTO handleGetCategory(Long id) throws IdInvalidException {
         return this.categoryRepository.findById(id).orElseThrow(
                 () -> new IdInvalidException("category is not exist")
-        ).toCategoryDTO();
+        ).toDTO(CategoryDTO.class);
     }
 
 
@@ -70,9 +70,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public boolean isCategoryExist(String name) {
-        if (this.categoryRepository.findByName(name).isPresent()) {
-            return true;
-        }
-        return false;
+        return this.categoryRepository.findByName(name).isPresent();
     }
 }

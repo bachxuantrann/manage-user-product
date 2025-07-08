@@ -26,32 +26,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO handleCreateUser(User user) throws IdInvalidException {
-        boolean isExist = this.isUserExist(user.getUsername());
+        boolean isExist = this.isUserExist(user.getUsername().trim());
         if (isExist) {
             throw new IdInvalidException("user is exist");
         }
-        String password = user.getPassword();
+        String password = user.getPassword().trim();
         String hassPassword = this.passwordEncoder.encode(password);
         user.setPassword(hassPassword);
-        if (user.getRole() == null) {
-            user.setRole(RoleEnum.USER);  // gán quyền mặc định
-        }
+        user.setRole(RoleEnum.USER);
         User newUser = this.userRepository.save(user);
-        return newUser.toUserDTO();
+        return newUser.toDTO(UserDTO.class);
     }
 
     @Override
     public UserDTO handleGetUserDetail(Long id) throws IdInvalidException {
         return this.userRepository.findById(id).orElseThrow(
                 () -> new IdInvalidException("user is not exist")
-        ).toUserDTO();
+        ).toDTO(UserDTO.class);
     }
 
     public boolean isUserExist(String userName) {
-        if (this.userRepository.findByUsername(userName).isPresent()) {
-            return true;
-        }
-        return false;
+        return this.userRepository.findByUsername(userName.trim()).isPresent();
     }
 
     @Override
@@ -78,7 +73,7 @@ public class UserServiceImpl implements UserService {
             }
             currentUser = this.userRepository.save(currentUser);
         }
-        return currentUser.toUserDTO();
+        return currentUser.toDTO(UserDTO.class);
     }
 
     @Override

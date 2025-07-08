@@ -26,6 +26,7 @@ public class UserController {
 
     @PostMapping("/create")
     @ApiMessage("create a new user")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.handleCreateUser(user));
     }
