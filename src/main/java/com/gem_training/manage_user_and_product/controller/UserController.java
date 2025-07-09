@@ -49,8 +49,8 @@ public class UserController {
     @PutMapping("/update")
     @ApiMessage("update a user")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) throws IdInvalidException {
-        return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleUpdateUser(userDTO));
+    public ResponseEntity<UserDTO> updateUser(@RequestBody User user) throws IdInvalidException {
+        return ResponseEntity.status(HttpStatus.OK).body(this.userService.handleUpdateUser(user));
     }
 
     @GetMapping("/getAll")

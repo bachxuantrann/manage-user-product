@@ -59,20 +59,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO handleUpdateUser(UserDTO userDTO) throws IdInvalidException {
-        User currentUser = this.userRepository.findById(userDTO.getId()).orElseThrow(() -> new IdInvalidException("id is not found: " + userDTO.getId()));
+    public UserDTO handleUpdateUser(User user) throws IdInvalidException {
+        User currentUser = this.userRepository.findById(user.getId()).orElseThrow(() -> new IdInvalidException("id is not found: " + user.getId()));
         if (currentUser != null) {
-            if (userDTO.getUsername() != null) {
-                currentUser.setUsername(userDTO.getUsername());
+            if (user.getUsername() != null) {
+                currentUser.setUsername(user.getUsername());
             }
-            if (userDTO.getAddress() != null) {
-                currentUser.setAddress(userDTO.getAddress());
+            if (user.getAddress() != null) {
+                currentUser.setAddress(user.getAddress());
             }
-            if (userDTO.getRole() != null) {
-                currentUser.setRole(userDTO.getRole());
+            if (user.getRole() != null) {
+                currentUser.setRole(user.getRole());
+            }
+            if(user.getAge() != 0){
+                currentUser.setAge(user.getAge());
             }
             currentUser = this.userRepository.save(currentUser);
         }
+        System.out.println(user.getAge());
+        System.out.println(currentUser.getAge());
         return currentUser.toDTO(UserDTO.class);
     }
 

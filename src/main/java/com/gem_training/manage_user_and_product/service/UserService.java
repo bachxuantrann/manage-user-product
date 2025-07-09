@@ -14,7 +14,7 @@ public interface UserService {
 
     void handleDeleteUser(Long id) throws IdInvalidException;
 
-    UserDTO handleUpdateUser(UserDTO userDTO) throws IdInvalidException;
+    UserDTO handleUpdateUser(User user) throws IdInvalidException;
 
     ResultPaginationDTO handleGetAllUsers(Specification spec, Pageable pageable);
 
