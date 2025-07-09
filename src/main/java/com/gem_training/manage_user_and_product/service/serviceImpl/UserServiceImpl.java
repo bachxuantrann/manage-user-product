@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
                 currentUser.setAddress(userDTO.getAddress());
             }
             if (userDTO.getRole() != null) {
-                currentUser.setRole(RoleEnum.valueOf(userDTO.getRole()));
+                currentUser.setRole(userDTO.getRole());
             }
             currentUser = this.userRepository.save(currentUser);
         }

@@ -9,6 +9,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,7 +49,7 @@ public class BaseEntity<DTO> implements Serializable {
 //            get array fields of dto
             Field[] dtoFields = clazz.getDeclaredFields();
 //            get array fields of entity
-            Field[] entityFields = this.getClass().getDeclaredFields();
+            Field[] entityFields = getAllFields(this.getClass());
             for (Field dtoField : dtoFields) {
                 dtoField.setAccessible(true);
                 for (Field entityField : entityFields) {
@@ -62,5 +65,13 @@ public class BaseEntity<DTO> implements Serializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    public static Field[] getAllFields(Class<?> type) {
+        List<Field> fields = new ArrayList<>();
+        while (type != null && type != Object.class) {
+            fields.addAll(Arrays.asList(type.getDeclaredFields()));
+            type = type.getSuperclass();
+        }
+        return fields.toArray(new Field[0]);
     }
 }
